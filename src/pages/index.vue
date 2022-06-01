@@ -1,62 +1,53 @@
 <script setup lang="ts">
-const user = useUserStore()
-const name = $ref(user.savedName)
+import Pirat from '~/components/Pirat.vue'
+const timeLeft = ref()
+const refs = useTemplateRefsList<HTMLImageElement>()
 
-const router = useRouter()
-const go = () => {
-  if (name)
-    router.push(`/hi/${encodeURIComponent(name)}`)
-}
+let isPause = $ref(false)
+let secondsLeft = $ref<number>()
 
-const { t } = useI18n()
+setInterval(() => {
+  const currDate = new Date()
+  const currMin = currDate.getMinutes() % 30
+  const currSec = currDate.getSeconds()
+  isPause = currMin < 30 && currMin >= 25
+  timeLeft.value = isPause
+    ? `${(4 - (currDate.getMinutes() % 30 - 25)).toString().padStart(2, '0')}:${(59 - currSec).toString().padStart(2, '0')}`
+    : `${(24 - currDate.getMinutes() % 30).toString().padStart(2, '0')}:${(59 - currSec).toString().padStart(2, '0')}`
+
+  secondsLeft = +(timeLeft.value.split(':')[0]) * 60 + +(timeLeft.value.split(':')[1])
+
+  refs.value.forEach((e) => {
+    e.style.transform = `rotate(${(currSec / 60) * 360 * (isPause ? 20 : 1)}deg)`
+  })
+}, 1000)
 </script>
 
 <template>
-  <div>
-    <div text-4xl>
-      <div i-carbon-campsite inline-block />
+  <div class="h-full w-full py-10 flex flex-col" :class="{ 'bg-red-400': isPause, 'bg-green-400': !isPause }">
+    <div class="w-full px-36 text-2xl flex justify-evenly items-center text-4xl">
+      <img :ref="refs.set" class="h-24 transition-all duration-1000 ease-linear" :class="[isPause && 'h-20rem']" src="/src/assets/falcondev.png" alt="">
+      <span :class="[isPause && 'animate-spin']">falconDev IT GmbH <span class="text-sm">und andere</span></span>
+      <img :ref="refs.set" class="h-23 transition-all duration-1000 ease-linear" :class="[isPause && 'h-20rem']" src="/src/assets/blackfire.png" alt="">
     </div>
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank">
-        Vitesse
-      </a>
-    </p>
-    <p>
-      <em text-sm opacity-75>{{ t('intro.desc') }}</em>
-    </p>
-
-    <div py-4 />
-
-    <input
-      id="input"
-      v-model="name"
-      :placeholder="t('intro.whats-your-name')"
-      :aria-label="t('intro.whats-your-name')"
-      type="text"
-      autocomplete="false"
-      p="x4 y2"
-      w="250px"
-      text="center"
-      bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
-      outline="none active:none"
-      @keydown.enter="go"
-    >
-    <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
-    <div>
-      <button
-        btn m-3 text-sm
-        :disabled="!name"
-        @click="go"
-      >
-        {{ t('button.go') }}
-      </button>
+    <div class="w-full h-full flex justify-center items-center text-30rem tabular-nums">
+      {{ timeLeft }}
     </div>
+    <Pirat :pause="isPause" :time-left="secondsLeft" :time-total="isPause ? 300 : 300 * 5" />
   </div>
 </template>
 
-<route lang="yaml">
-meta:
-  layout: home
-</route>
+<style>
+.rotate {
+  animation: rotate 1s infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+</style>

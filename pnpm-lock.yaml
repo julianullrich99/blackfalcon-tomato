@@ -26,6 +26,7 @@ specifiers:
   unocss: ^0.34.1
   unplugin-auto-import: ^0.8.5
   unplugin-vue-components: ^0.19.6
+  v-animate-css: ^0.0.5
   vite: ^2.9.9
   vite-plugin-inspect: ^0.5.0
   vite-plugin-md: ^0.13.1
@@ -47,6 +48,7 @@ dependencies:
   nprogress: 0.2.0
   pinia: 2.0.14_qhv4oyzxhhzeba5rd2zztmcg2y
   prism-theme-vars: 0.2.3
+  v-animate-css: 0.0.5
   vue: 3.2.36
   vue-demi: 0.12.5_vue@3.2.36
   vue-i18n: 9.1.10_vue@3.2.36
@@ -6287,6 +6289,10 @@ packages:
       xmlchars: 2.2.0
     dev: true
 
+  /scrollmonitor/1.2.9:
+    resolution: {integrity: sha512-pgviMf1xa3nfKvVxH/MhA3o96UVHHWyjUPKfKSfGmRjWpLJLM/IMRlNpqWtgsV9Av2WyI2JmyiSeVJVkt/AV3w==}
+    dev: false
+
   /scule/0.2.1:
     resolution: {integrity: sha512-M9gnWtn3J0W+UhJOHmBxBTwv8mZCan5i1Himp60t6vvZcor0wr+IM0URKmIglsWJ7bRujNAVVN77fp+uZaWoKg==}
     dev: true
@@ -7103,6 +7109,12 @@ packages:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
     dev: true
+
+  /v-animate-css/0.0.5:
+    resolution: {integrity: sha512-FML26yVYX3hCTWTKioTNAIXjaWIFWa1mSczb92cLkMYI9QI6uRacKx7QnBNB17IOFLFEv8mc14aawe2In/ba1w==}
+    dependencies:
+      scrollmonitor: 1.2.9
+    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
