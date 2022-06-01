@@ -24,7 +24,7 @@ let direction: DIRECTIONS = DIRECTIONS.left
 let imgSrc = $ref<String>()
 
 const showImage = () => {
-  imgSrc = images[Math.floor(Math.random() * images.length)]
+  imgSrc = `${images[Math.floor(Math.random() * images.length)]}`
   direction = Math.random() >= 0.5 ? DIRECTIONS.left : DIRECTIONS.right
 }
 
