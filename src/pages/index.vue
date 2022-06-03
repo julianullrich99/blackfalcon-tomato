@@ -32,9 +32,16 @@ const sounds = [
 ]
 const { play } = useSound(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`)
 
-watch(() => isPause, async () => {
-  const { play } = useSound(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`)
-  play()
+onMounted(() => {
+  watch(() => isPause, async () => {
+    // console.log('dinge')
+    // const { play } = useSound(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`)
+    // play()
+
+    const audio = new Audio(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`)
+    audio.loop = false
+    audio.play()
+  })
 })
 </script>
 
@@ -45,7 +52,7 @@ watch(() => isPause, async () => {
       <span :class="[isPause && 'animate-spin']">falconDev IT GmbH <span class="text-sm">und andere</span></span>
       <img :ref="refs.set" class="h-23 transition-all duration-1000 ease-linear" :class="[isPause && 'h-20rem']" src="/src/assets/blackfire.png" alt="">
     </div>
-    <div class="w-full h-full flex justify-center items-center text-30rem tabular-nums" @click="useSound(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`).play()">
+    <div class="w-full h-full flex justify-center items-center text-30rem tabular-nums" @click="play">
       {{ timeLeft }}
     </div>
     <Pirat :pause="isPause" :time-left="secondsLeft" :time-total="isPause ? 300 : 300 * 5" />
