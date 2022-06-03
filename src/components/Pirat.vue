@@ -38,7 +38,7 @@ const animateImage = () => {
 
     imageRef.style.transform = `translateX(${direction === DIRECTIONS.left ? margin : (window.innerWidth - imageRef.clientWidth - margin)}px) ${direction === DIRECTIONS.right ? 'scaleX(-1)' : ''}`
     // imageRef.style.transform = `translateX(${margin}px)`
-  }, 1000 / 60)
+  }, 1000)
 }
 
 watch(() => props.pause, () => {

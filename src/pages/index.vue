@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useSound } from '@vueuse/sound'
 import Pirat from '~/components/Pirat.vue'
+import alarm from '/src/assets/alarm.webm'
+
 const timeLeft = ref()
 const refs = useTemplateRefsList<HTMLImageElement>()
 
@@ -21,6 +24,18 @@ setInterval(() => {
     e.style.transform = `rotate(${(currSec / 60) * 360 * (isPause ? 20 : 1)}deg)`
   })
 }, 1000)
+
+const sounds = [
+  'alarm.webm',
+  'arbeiten.webm',
+  'okletsgo.webm',
+]
+const { play } = useSound(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`)
+
+watch(() => isPause, async () => {
+  const { play } = useSound(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`)
+  play()
+})
 </script>
 
 <template>
@@ -30,7 +45,7 @@ setInterval(() => {
       <span :class="[isPause && 'animate-spin']">falconDev IT GmbH <span class="text-sm">und andere</span></span>
       <img :ref="refs.set" class="h-23 transition-all duration-1000 ease-linear" :class="[isPause && 'h-20rem']" src="/src/assets/blackfire.png" alt="">
     </div>
-    <div class="w-full h-full flex justify-center items-center text-30rem tabular-nums">
+    <div class="w-full h-full flex justify-center items-center text-30rem tabular-nums" @click="useSound(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`).play()">
       {{ timeLeft }}
     </div>
     <Pirat :pause="isPause" :time-left="secondsLeft" :time-total="isPause ? 300 : 300 * 5" />
