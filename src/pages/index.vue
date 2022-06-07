@@ -30,7 +30,12 @@ const sounds = [
   'arbeiten.webm',
   'okletsgo.webm',
 ]
-const { play } = useSound(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`)
+const play = () => {
+  console.log('play')
+  const audio = new Audio(`/src/assets/${sounds[Math.floor(Math.random() * sounds.length)]}`)
+  audio.loop = false
+  audio.play()
+}
 
 onMounted(() => {
   watch(() => isPause, async () => {
