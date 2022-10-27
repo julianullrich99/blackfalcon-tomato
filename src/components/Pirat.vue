@@ -18,6 +18,16 @@ const images = [
   'kek.png',
   'Luuuuu.png',
   'piewwarrrrrr.png',
+  'bild1.png',
+  'bild2.png',
+  'bild3.png',
+  'bild4.png',
+  'bild5.png',
+  'bild6.png',
+  'bild7.png',
+  'bild8.png',
+  'bild9.png',
+  'bild10.png',
 ]
 
 let direction: DIRECTIONS = DIRECTIONS.left
